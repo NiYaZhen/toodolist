@@ -1,0 +1,168 @@
+syntax = "proto3";
+ 
+// user 包
+package protobuf;
+
+// 指定 go 的包路径及包名
+// option go_package="app/services;services";
+// 指定 php 的命名空间
+// option php_namespace="App\\Services";
+
+// User 服务及服务接口的定义
+service Tasks {
+    rpc GetTasksList(GetTasksRequest) returns (GetTasksResponse) {}
+    rpc Create(CreateTasksRequest) returns (CreateTasksResponse) {}
+    rpc Update(UpdateRequest) returns (UpdateResponse) {}
+    rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+    rpc DeleteAll(DeleteAllRequest) returns (DeleteAllResponse) {}
+    rpc Search(SearchRequest) returns (SearchResponse) {}
+    rpc SearchTypeTasks(SearchTypeRequest) returns (SearchTypeResponse) {}
+    rpc Complete(CompleteRequest) returns (CompleteResponse) {}
+    rpc UpdoTasksDate(UpdoTasksDateRequest) returns (UpdoTasksDateResponse) {}
+}
+
+
+// 用户实体模型
+message ToDoListEntity {
+    string id=1;
+    string title = 2;
+    string content =3;
+    string type = 4;
+    string remark = 5;
+    string createdat=6;
+    string updataat=7;
+    string completedat=8;
+    string startdateat =9;
+    string enddateat =10;
+    string timeleft =11;
+    bool complete=12;
+    int32 status =13;
+    string useremail=14;
+}
+
+message GetTasksRequest {
+    string useremail=1;
+
+
+}
+
+message GetTasksResponse {
+    repeated ToDoListEntity data = 1;
+    int32 err = 2;
+    string msg = 3;
+}
+
+message CreateTasksRequest {
+    string title = 1;
+    string content =2;
+    string type = 3;
+    string remark = 4;
+    string startdateat =5;
+    string enddateat =6;
+    string useremail=7;
+}
+
+message CreateTasksResponse {
+    int32 err = 1;
+    string msg = 2;
+    repeated ToDoListEntity data = 3;
+}
+
+message UpdateRequest {
+    string id=1;
+    string title = 2;
+    string content =3;
+    string type = 4;
+    string remark = 5;
+    string createdat=6;
+    string updataat=7;
+    string completedat=8;
+    string startdateat =9;
+    string enddateat =10;
+    string timeleft =11;
+    bool complete=12;
+    int32 status =13;
+    string useremail=14;
+}
+
+message UpdateResponse {
+    int32 err = 1;
+    string msg = 2;
+    repeated ToDoListEntity data = 3;
+}
+
+message DeleteRequest {
+    string id=1;
+    string useremail =2;
+}
+
+message DeleteResponse {
+    int32 err = 1;
+    string msg = 2;
+}
+
+message DeleteAllRequest {
+    string useremail =1;
+}
+
+message DeleteAllResponse {
+    int32 err = 1;
+    string msg = 2;
+}
+
+message SearchRequest {
+    string id=1;
+    string useremail =2;
+}
+message SearchResponse {
+    int32 err = 1;
+    string msg = 2;
+    ToDoListEntity Tasks = 3;
+
+    
+}
+
+message SearchTypeRequest {
+    string type =1;
+    string useremail =2;
+}
+
+message SearchTypeResponse {
+    int32 err = 1;
+    string msg = 2;
+    repeated ToDoListEntity data = 3;
+}
+
+message CompleteRequest {
+    string id =1;
+    string useremail =2;
+}
+
+message CompleteResponse {
+    int32 err = 1;
+    string msg = 2;
+    repeated ToDoListEntity data = 3;
+}
+message UpdoTasksDateRequest {
+    string id =1;
+    string useremail =2;
+}
+
+message UpdoTasksDateResponse {
+    int32 err = 1;
+    string msg = 2;
+    repeated ToDoListEntity data = 3;
+}
+
+message StatusType {
+    enum Enum {
+        // 尚未開始
+        NotStart = 0;
+        // 進行中
+        InProgerss = 1;
+        // 逾期
+        OverDue = 2;
+        // 完成
+        Complete = 3;
+    }
+}
